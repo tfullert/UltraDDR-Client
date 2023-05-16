@@ -66,7 +66,9 @@ class DDRClient:
         
     def doPostMultiPartFile(self, path='', headers=baseHeaders, params=None, files=None):
     
-        rsp = requests.post(self.getURL(path), headers=self.prepHeaders(headers), params=params, files=files) 
+        subHeaders = self.prepHeaders(headers)
+        subHeaders.pop('Content-Type')
+        rsp = requests.post(self.getURL(path), headers=subHeaders, params=params, files=files)
         return rsp
                
     def doPut(self, path='', headers=baseHeaders, params=None):
